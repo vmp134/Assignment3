@@ -29,12 +29,17 @@ int main(int argc, char **argv) {
     else if (argc == 1){
         if (isatty(STDIN_FILENO)) {
             isInteractive = 1;
+            printf("Welcome to my shell!");
         }
         else isInteractive = 0;
     }
     else return EXIT_FAILURE;
-
+    
     //Parsing loop
     
 
+
+
+    if (isInteractive) printf("Exiting my shell.");
+    return EXIT_SUCCESS;
 }
