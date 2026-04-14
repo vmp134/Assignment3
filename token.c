@@ -7,7 +7,7 @@
  * Rules (from p3):
  *   - A token is a run of non-whitespace characters.
  *   - '<', '>', '|' are always single-character tokens on their own.
- *     (The spec guarantees they are whitespace-separated, but we handle
+ *     ( p3 guarantees they are whitespace-separated, but we handle
  *      them correctly even if they are not.)
  *   - '#' starts a comment; everything from '#' to EOL is discarded.
  */
