@@ -60,3 +60,5 @@ int is_builtin(const char *name);
 int resolve_path(const char *name, char *out_path, int out_len);
 
 // execute.c
+void execute_command(Command *cmd, int isInteractive, int in_fd, int out_fd);
+void execute_job(Job *job, int isInteractive);
