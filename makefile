@@ -1,7 +1,7 @@
 CC     = gcc
 CFLAGS = -Wall -Wextra -g
 
-SRCS = main.c input.c tokenizer.c resolve.c
+SRCS = mysh.c input.c token.c resolve.c execute.c
 OBJS = $(SRCS:.c=.o)
 
 mysh: $(OBJS)

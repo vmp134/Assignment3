@@ -58,3 +58,5 @@ void free_job(Job *job);
 // resolve.c
 int is_builtin(const char *name);
 int resolve_path(const char *name, char *out_path, int out_len);
+
+// execute.c

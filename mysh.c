@@ -1,11 +1,5 @@
 #include "mysh.h"
 
-// Parsing commands
-void parser(char *line) {}
-
-// Executing commands
-int execute() { return 0; }
-
 // Main
 int main(int argc, char **argv) {
   // Flags for our parsing loop
