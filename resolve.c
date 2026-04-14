@@ -1,6 +1,6 @@
 #include "mysh.h"
 
-/* Directories searched in order for bare program names (spec §2.2). */
+/* Directories searched in order for bare program names. */
 static const char *SEARCH_DIRS[] = {"/usr/local/bin", "/usr/bin", "/bin", NULL};
 
 /*
