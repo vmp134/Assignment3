@@ -6,3 +6,5 @@
 #include <unistd.h>
 #include <fcntl.h>
 
+#define BUFFERLENGTH 4096
+
