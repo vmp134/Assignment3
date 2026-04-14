@@ -27,8 +27,7 @@ int is_builtin(const char *name) {
 /*
  * resolve_path
  *
- * Resolves a command name to a full executable path using the rules
- * from spec §2.2.
+ * Resolves a command name to a full executable path using the rules from p3.
  *
  * Logic :
  *   1. If name is a built-in, set out_path to "" and return 0.
