@@ -2,9 +2,9 @@
 #include <assert.h>
 
 void test_read_line() {
-    int fd = open("testFile", O_RDONLY);
+    int fd = open("testFile.sh", O_RDONLY);
     char buf[MAX_LINE];
-    char *str = "Hello World!\n"
+    char *str = "echo hello";
 
     assert(read_line(fd, buf, sizeof(buf)) == 0);
     assert(strcmp(buf, str) == 0);
