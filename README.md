@@ -2,5 +2,8 @@
     Samuel Habib smh389, Victor Peng vmp134
 
 2. Testing Plan
+    - Unit Tests (shellTest.c)
+    - Integration Tests (./mysh)
 
 3. Design Notes
+    - 
