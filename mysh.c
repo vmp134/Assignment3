@@ -94,8 +94,8 @@ int main(int argc, char **argv) {
       }
     }
 
-    // TODO: Execution
-    //  execute_job(job, isInteractive);
+    // Execution
+    execute_job(job, isInteractive);
 
     free_job(job);
     if (should_exit)

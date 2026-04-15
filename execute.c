@@ -23,26 +23,59 @@ void execute_command(Command *cmd, int isInteractive, int in_fd, int out_fd) {
         }
     }
 
-    //Forking
+    //Commands
     pid_t pid = fork();
     if (pid == 0) {
         if (cmd->input_file) {
-
+            int fd = open(cmd->input_file, O_RDONLY);
+            if (fd < 0) {
+                perror("open input");
+                exit(EXIT_FAILURE);
+            }
+            dup2(fd, STDIN_FILENO);
+            close(fd);
+        }
+        else if (in_fd != STDIN_FILENO)
+            dup2(in_fd, STDIN_FILENO);
+        else if (!isInteractive) {
+            int dev_null = open("/dev/null", O_RDONLY);
+            dup2(dev_null, STDIN_FILENO);
+            close(dev_null);
         }
         
         if (cmd->output_file) {
-
+            int fd = open(cmd->output_file, O_WRONLY | O_CREAT | O_TRUNC, 0640);
+            if (fd < 0) {
+                perror("open output");
+                exit(EXIT_FAILURE);
+            }
+            dup2(fd, STDOUT_FILENO);
+            close(fd);            
         }
+        else if (out_fd != STDOUT_FILENO)
+            dup2(out_fd, STDOUT_FILENO);
 
-        if (cmd->builtin == BUILTIN_CD) {
+        if (cmd->builtin == BUILTIN_PWD) {
+            if (cmd->argc > 1) {
+                fprintf(stderr, "pwd: too many arguments\n");
+                exit(EXIT_FAILURE);
+            }            
             char cwd[MAX_LINE];
             if (getcwd(cwd, sizeof(cwd)))
                 printf("%s\n", cwd);
             exit(EXIT_SUCCESS);
         }
         else if (cmd->builtin == BUILTIN_WHICH) {
-            //NEEDS WORK
-            exit(EXIT_SUCCESS);
+            if (cmd->argc != 2) {
+                fprintf(stderr, "which: incorrect number of arguments\n");
+                exit(EXIT_FAILURE);
+            }            
+            char path[MAX_LINE];
+            if (resolve_path(cmd->argv[1], path, MAX_LINE) == 1) {
+                printf("%S\n", path);
+                exit(EXIT_SUCCESS);
+            }
+            exit(EXIT_FAILURE);
         }
 
         if (cmd->resolved_path[0] != '\0') {
@@ -57,7 +90,7 @@ void execute_command(Command *cmd, int isInteractive, int in_fd, int out_fd) {
         if (isInteractive && out_fd == STDOUT_FILENO) {
             if (WIFEXITED(status) && WEXITSTATUS(status) != 0)
                 printf("Exited with status %d\n", WEXITSTATUS(status));
-            else if (WIFEXITED(status))
+            else if (WIFSIGNALED(status))
                 printf("Terminated by signal %d: %s\n", WTERMSIG(status), strsignal(WTERMSIG(status)));
         }
     }
