@@ -2,6 +2,12 @@
 #include <assert.h>
 
 void test_read_line() {
+    int fd = open("testFile", O_RDONLY);
+    char buf[MAX_LINE];
+    char *str = "Hello World!\n"
+
+    assert(read_line(fd, buf, sizeof(buf)) == 0);
+    assert(strcmp(buf, str) == 0);
     printf("Read Line tests passed\n"); 
 }
 

@@ -14,4 +14,4 @@ crash: crash.c
 	$(CC) $(CFLAGS) -o crash crash.c
 
 clean:
-	rm -f $(OBJS) mysh
+	rm -f $(OBJS) mysh crash
