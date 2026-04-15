@@ -3,7 +3,8 @@
 
 2. Testing Plan
     - Unit Tests (shellTest.c)
-    - Integration Tests (./mysh)
+    - Integration Tests (./mysh)    
+        - Ran ./crash in mysh  
 
 3. Design Notes
     - 

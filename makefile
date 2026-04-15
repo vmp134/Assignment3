@@ -10,5 +10,8 @@ mysh: $(OBJS)
 %.o: %.c mysh.h
 	$(CC) $(CFLAGS) -c -o $@ $<
 
+crash: crash.c
+	$(CC) $(CFLAGS) -o crash crash.c
+
 clean:
 	rm -f $(OBJS) mysh
