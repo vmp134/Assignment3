@@ -184,6 +184,17 @@ Job *parse_job(Token *tokens, int num_tokens) {
       continue;
     }
 
+    // wildcard
+    if (strchr(tokens[i].value, '*') != NULL) {
+      glob_t g;
+      if (glob(tokens[i].value, GLOB_NOCHECK | GLOB_TILDE, NULL, &g) == 0) {
+        for (size_t j = 0; j < g.gl_pathc; j++) 
+          append_arg(cur, g.gl_pathv[j]);
+        globfree(&g);
+      }
+      continue;
+    }
+
     /* ---- Normal argument word ---- */
     append_arg(cur, tokens[i].value);
   }

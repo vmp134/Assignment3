@@ -3,6 +3,8 @@
 //execute_command
 /*
  * If the command is only cd, we check argv for location
+ * Otherwise, we call fork() and arrange the ends of the pipe
+ * We then call execv(), and run the program
  */
 void execute_command(Command *cmd, int isInteractive, int in_fd, int out_fd) {
     //Handle cd command
@@ -23,7 +25,7 @@ void execute_command(Command *cmd, int isInteractive, int in_fd, int out_fd) {
         }
     }
 
-    //Commands
+    //Others
     pid_t pid = fork();
     if (pid == 0) {
         if (cmd->input_file) {
@@ -72,7 +74,7 @@ void execute_command(Command *cmd, int isInteractive, int in_fd, int out_fd) {
             }            
             char path[MAX_LINE];
             if (resolve_path(cmd->argv[1], path, MAX_LINE) == 1) {
-                printf("%S\n", path);
+                printf("%s\n", path);
                 exit(EXIT_SUCCESS);
             }
             exit(EXIT_FAILURE);
