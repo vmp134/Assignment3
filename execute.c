@@ -5,6 +5,7 @@
  * If the command is only cd, we check argv for location
  * Otherwise, we call fork() and arrange the ends of the pipe
  * We then call execv(), and run the program
+ * We check exit status, and exit signal otherwise for termination
  */
 void execute_command(Command *cmd, int isInteractive, int in_fd, int out_fd) {
     //Handle cd command
