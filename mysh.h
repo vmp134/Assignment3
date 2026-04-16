@@ -50,6 +50,7 @@ typedef struct {
 // input.c
 int read_line(int fd, char *line_buf, int max_len);
 void print_prompt(int interactive);
+void reset_read_line();
 
 // token.c
 int tokenize(const char *line, Token *tokens, int max_tokens);

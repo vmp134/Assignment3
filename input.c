@@ -144,3 +144,12 @@ void print_prompt(int interactive) {
   prompt[plen++] = ' ';
   write(STDOUT_FILENO, prompt, plen);
 }
+
+//Mostly for testing purposes, to reset the static variables
+/*
+ * Just in case
+ */
+void reset_read_line() {
+  ibuf_start = 0;
+  ibuf_end = 0;
+}

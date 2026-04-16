@@ -2,16 +2,20 @@
 #include <assert.h>
 
 void test_read_line() {
-    int fd = open("testFile.sh", O_RDONLY);
+    reset_read_line();
+    int fd = open("shellTest1.sh", O_RDONLY);
     char buf[MAX_LINE];
     char *str = "echo hello";
 
-    assert(read_line(fd, buf, sizeof(buf)) == 0);
+    assert(read_line(fd, buf, sizeof(buf)) == 1);
     assert(strcmp(buf, str) == 0);
+
+    close(fd);
     printf("Read Line tests passed\n"); 
 }
 
 void test_tokenize() {
+    reset_read_line();
     Token tokens[MAX_TOKENS];
     int n = tokenize("ls -l | wc", tokens, MAX_TOKENS);
 
@@ -22,10 +26,12 @@ void test_tokenize() {
 }
 
 void test_parse_job() {
+    reset_read_line();
     printf("Parse Job tests passed\n"); 
 }
 
 void test_builtin() {
+    reset_read_line();
     assert(is_builtin("cd") == BUILTIN_CD);
     assert(is_builtin("pwd") == BUILTIN_PWD);
     assert(is_builtin("which") == BUILTIN_WHICH);
@@ -35,14 +41,25 @@ void test_builtin() {
 }
 
 void test_resolve_path() {
+    reset_read_line();
+    char path[MAX_LINE];
+    int found = resolve_path("ls", path, MAX_LINE);
+    
+    assert(found == 1);
+    assert(strstr(path, "/ls") != NULL); 
+    assert(resolve_path("fakecommand123", path, MAX_LINE) == -1);
+    printf("Resolve tests passed\n");
+
     printf("Resolve tests passed\n"); 
 }
 
 void test_execute_command() {
+    reset_read_line();
     printf("Execute Command tests passed\n"); 
 }
 
 void test_execute_job() {
+    reset_read_line();
     printf("Execute Job tests passed\n"); 
 }
 
